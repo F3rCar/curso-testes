@@ -14,7 +14,7 @@ class Autor {
   }
 
   static async pegarAutores() {
-    return this.db.select('*').from('autores');
+    return this.db.select('*').from('autores').orderBy('nome', 'asc');
   }
 
   static async pegarPeloId(id) {
