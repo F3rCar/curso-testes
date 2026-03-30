@@ -1,4 +1,5 @@
 import Venda from '#models/venda.js';
+import { calcularValorVenda } from '#domain/calcular-valor-venda.js';
 
 export class VendasController {
   constructor(databaseConnection) {
@@ -16,7 +17,7 @@ export class VendasController {
     }
 
     try {
-      const valorFinal = Venda.calcularValorFinal(valor, modoPagamento);
+      const valorFinal = calcularValorVenda(valor, modoPagamento);
 
       const venda = new Venda({
         livro_id: idLivro,

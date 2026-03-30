@@ -11,6 +11,7 @@
     "#controllers/*.js": "./src/controllers/*.js",
     "#db/*.js": "./src/db/*.js",
     "#models/*.js": "./src/models/*.js",
+    "#domain/*.js": "./src/domain/*.js",
     "#routes/*.js": "./src/routes/*.js",
     "#src/*.js": "./src/*.js"
   },
