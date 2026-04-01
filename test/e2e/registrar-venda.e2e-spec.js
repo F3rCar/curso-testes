@@ -3,6 +3,7 @@ import request from 'supertest';
 import app from '#src/app.js';
 import conexao from '#db/singleton-connection.js';
 import assert from 'node:assert';
+import { criarLivro } from '#test/factories/livro.factory.js';
 
 describe('Registrar Venda', () => {
   after(async () => {
@@ -30,32 +31,3 @@ describe('Registrar Venda', () => {
     assert.strictEqual(response.valor, 100);
   });
 });
-
-async function criarLivro(dadosParciais = {}) {
-  const [autor] = await conexao('autores')
-    .insert({
-      nome: 'Autor Teste',
-      nacionalidade: 'Teste',
-    })
-    .returning('*');
-
-  const [editora] = await conexao('editoras')
-    .insert({
-      nome: 'Editora Teste',
-      email: 'editora@teste.com',
-      cidade: 'Cidade Teste',
-    })
-    .returning('*');
-
-  const dadosLivro = {
-    titulo: 'Test',
-    paginas: 100,
-    autor_id: autor.id,
-    editora_id: editora.id,
-    ...dadosParciais,
-  };
-
-  const [livro] = await conexao('livros').insert(dadosLivro).returning('*');
-
-  return livro;
-}

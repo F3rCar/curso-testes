@@ -13,6 +13,7 @@
     "#models/*.js": "./src/models/*.js",
     "#domain/*.js": "./src/domain/*.js",
     "#routes/*.js": "./src/routes/*.js",
+    "#test/factories/*.js": "./test/factories/*.js",
     "#src/*.js": "./src/*.js"
   },
   "scripts": {
