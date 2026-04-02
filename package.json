@@ -14,6 +14,7 @@
     "#domain/*.js": "./src/domain/*.js",
     "#routes/*.js": "./src/routes/*.js",
     "#test/factories/*.js": "./test/factories/*.js",
+    "#test/utils/*.js": "./test/utils/*.js",
     "#src/*.js": "./src/*.js"
   },
   "scripts": {
