@@ -12,6 +12,7 @@
     "#db/*.js": "./src/db/*.js",
     "#models/*.js": "./src/models/*.js",
     "#domain/*.js": "./src/domain/*.js",
+    "#services/*.js": "./src/services/*.js",
     "#routes/*.js": "./src/routes/*.js",
     "#test/factories/*.js": "./test/factories/*.js",
     "#test/utils/*.js": "./test/utils/*.js",

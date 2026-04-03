@@ -1,15 +1,18 @@
 import Livro from '#models/livro.js';
+import { LivrosService } from '#services/livros.service.js';
 
 export class LivrosController {
   constructor(databaseConnection) {
     Livro.configurarDB(databaseConnection);
+    this.livrosService = new LivrosService(databaseConnection);
   }
 
   async listarLivros(req, res) {
     try {
-      const resultado = await Livro.pegarLivros();
+      const resultado = await this.livrosService.listarLivros();
       res.status(200).send(resultado);
     } catch (err) {
+      console.error(err);
       res.status(500).json(err.message);
     }
   }
