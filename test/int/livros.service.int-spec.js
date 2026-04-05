@@ -33,4 +33,19 @@ describe('LivrosService', () => {
       assert.deepStrictEqual(resultado, [livro1, livro2]);
     });
   });
+
+  describe('buscarLivroPorId', () => {
+    test('Retorna undefined quando o livro não existe', async () => {
+      const resultado = await sut.buscarLivroPorId(9999);
+
+      assert.strictEqual(resultado, undefined);
+    });
+    test('Retorna os dados do livro quando ele existe', async () => {
+      const livro = await criarLivro({ titulo: 'Livro Teste 3' });
+
+      const resultado = await sut.buscarLivroPorId(livro.id);
+
+      assert.deepStrictEqual(resultado, livro);
+    });
+  });
 });

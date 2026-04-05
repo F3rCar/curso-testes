@@ -10,7 +10,7 @@ export class LivrosController {
   async listarLivros(req, res) {
     try {
       const resultado = await this.livrosService.listarLivros();
-      res.status(200).send(resultado);
+      res.status(200).json(resultado);
     } catch (err) {
       console.error(err);
       res.status(500).json(err.message);
@@ -20,9 +20,11 @@ export class LivrosController {
   async buscarLivroPorId(req, res) {
     const { id } = req.params;
     try {
-      const resultado = await Livro.pegarPeloId(id);
+      const resultado = await this.livrosService.buscarLivroPorId(id);
       if (!resultado) {
-        return res.status(404).json({ message: 'Livro não encontrado' });
+        return res
+          .status(404)
+          .json({ message: 'Livro não encontrado', type: 'NOT_FOUND' });
       }
       res.status(200).send(resultado);
     } catch (err) {

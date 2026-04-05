@@ -9,4 +9,9 @@ export class LivrosService {
     const resultado = await Livro.pegarLivros();
     return resultado;
   }
+
+  async buscarLivroPorId(id) {
+    const resultado = await Livro.pegarPeloId(id);
+    return resultado;
+  }
 }

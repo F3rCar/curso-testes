@@ -27,7 +27,7 @@ describe('LivrosController', () => {
 
       // Arrange
       assertMock(resSpy.status).wasCalledWith(200);
-      assertMock(resSpy.send).wasCalledWith([livro]);
+      assertMock(resSpy.json).wasCalledWith([livro]);
     });
   });
   describe('buscarLivroPorId', () => {});
