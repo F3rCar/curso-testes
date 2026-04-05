@@ -5,11 +5,11 @@ import { calcularValorVenda } from '#domain/calcular-valor-venda.js';
 import { EmailGateway } from '#src/gateways/email.gateway.js';
 
 export class VendasService {
-  constructor(databaseConnection) {
+  constructor(databaseConnection, emailGateway = new EmailGateway()) {
     Venda.configurarDB(databaseConnection);
     Livro.configurarDB(databaseConnection);
     Editora.configurarDB(databaseConnection);
-    this.emailGateway = new EmailGateway();
+    this.emailGateway = emailGateway;
   }
 
   async registrarVenda({ idLivro, modoPagamento, valor }) {
