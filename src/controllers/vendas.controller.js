@@ -1,9 +1,10 @@
 import Venda from '#models/venda.js';
-import { calcularValorVenda } from '#domain/calcular-valor-venda.js';
+import { VendasService } from '#services/vendas.service.js';
 
 export class VendasController {
   constructor(databaseConnection) {
     Venda.configurarDB(databaseConnection);
+    this.vendasService = new VendasService(databaseConnection);
   }
 
   async registrarVenda(req, res) {
@@ -17,15 +18,11 @@ export class VendasController {
     }
 
     try {
-      const valorFinal = calcularValorVenda(valor, modoPagamento);
-
-      const venda = new Venda({
-        livro_id: idLivro,
-        valor: valorFinal,
-        tipo_pagamento: modoPagamento,
+      const resultado = await this.vendasService.registrarVenda({
+        idLivro,
+        modoPagamento,
+        valor,
       });
-
-      const resultado = await venda.salvar();
 
       return res.status(201).json({
         message: 'venda registrada',
