@@ -3,16 +3,28 @@ import Livro from '#models/livro.js';
 import Editora from '#models/editora.js';
 import { calcularValorVenda } from '#domain/calcular-valor-venda.js';
 import { EmailGateway } from '#src/gateways/email.gateway.js';
+import { EstoqueApiGateway } from '#src/gateways/estoque-api.gateway.js';
 
 export class VendasService {
-  constructor(databaseConnection, emailGateway = new EmailGateway()) {
+  constructor(
+    databaseConnection,
+    emailGateway = new EmailGateway(),
+    estoqueGateway = new EstoqueApiGateway(),
+  ) {
     Venda.configurarDB(databaseConnection);
     Livro.configurarDB(databaseConnection);
     Editora.configurarDB(databaseConnection);
     this.emailGateway = emailGateway;
+    this.estoqueGateway = estoqueGateway;
   }
 
   async registrarVenda({ idLivro, modoPagamento, valor }) {
+    const temEstoque = await this.estoqueGateway.temEstoque(idLivro);
+
+    if (!temEstoque) {
+      throw new Error('Livro sem estoque disponível');
+    }
+
     const valorFinal = calcularValorVenda(valor, modoPagamento);
 
     const venda = new Venda({

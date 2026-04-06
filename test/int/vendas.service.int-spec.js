@@ -17,7 +17,16 @@ describe('VendasService', () => {
       const emailGatewayMock = {
         enviarEmail: mock.fn(),
       };
-      const sut = new VendasService(conexao, emailGatewayMock);
+
+      const estoqueGatewayMock = {
+        temEstoque: mock.fn(() => Promise.resolve(true)),
+      };
+
+      const sut = new VendasService(
+        conexao,
+        emailGatewayMock,
+        estoqueGatewayMock,
+      );
       const editora = await criarEditora({
         email: 'editora@teste.com',
       });
@@ -43,6 +52,39 @@ describe('VendasService', () => {
         assunto: 'Nova venda registrada',
         mensagem:
           'Uma nova venda do livro "Livro para Venda" foi registrada com o valor de R$ 95.',
+      });
+    });
+
+    test('Lança um erro quando o livro não tem estoque disponível', async () => {
+      // Arrange
+      const emailGatewayMock = {
+        enviarEmail: mock.fn(),
+      };
+      const estoqueGatewayMock = {
+        temEstoque: mock.fn(() => Promise.resolve(false)),
+      };
+
+      const sut = new VendasService(
+        conexao,
+        emailGatewayMock,
+        estoqueGatewayMock,
+      );
+
+      const livro = await criarLivro({
+        titulo: 'Livro para Venda',
+      });
+
+      // Act
+      const resposta = () =>
+        sut.registrarVenda({
+          idLivro: livro.id,
+          modoPagamento: 'PIX',
+          valor: 100,
+        });
+
+      // Assert
+      assert.rejects(resposta, {
+        message: 'Livro sem estoque disponível',
       });
     });
   });
