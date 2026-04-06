@@ -1,11 +1,23 @@
-import { describe, test, after } from 'node:test';
+import { describe, test, after, mock } from 'node:test';
 import request from 'supertest';
-import app from '#src/app.js';
+import criarApp from '#src/app.js';
 import conexao from '#db/singleton-connection.js';
 import assert from 'node:assert';
 import { criarLivro } from '#test/factories/livro.factory.js';
 
 describe('Registrar Venda', () => {
+  const emailGatewayMock = {
+    enviarEmail: mock.fn(),
+  };
+  const estoqueGatewayMock = {
+    temEstoque: mock.fn(() => Promise.resolve(true)),
+  };
+
+  const app = criarApp({
+    emailGateway: emailGatewayMock,
+    estoqueGateway: estoqueGatewayMock,
+  });
+
   after(async () => {
     await conexao.destroy();
   });

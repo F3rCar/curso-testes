@@ -1,10 +1,9 @@
 import Venda from '#models/venda.js';
-import { VendasService } from '#services/vendas.service.js';
 
 export class VendasController {
-  constructor(databaseConnection) {
+  constructor(databaseConnection, vendasService) {
     Venda.configurarDB(databaseConnection);
-    this.vendasService = new VendasService(databaseConnection);
+    this.vendasService = vendasService;
   }
 
   async registrarVenda(req, res) {

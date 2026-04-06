@@ -1,11 +1,12 @@
 import { describe, test, after, beforeEach } from 'node:test';
 import request from 'supertest';
-import app from '#src/app.js';
 import conexao from '#db/singleton-connection.js';
 import { criarLivro } from '#test/factories/livro.factory.js';
 import assert from 'node:assert';
+import { criarAppTeste } from '#test/utils/create-test-app.js';
 
 describe('Listar livros', () => {
+  const app = criarAppTeste();
   after(async () => {
     await conexao.destroy();
   });
