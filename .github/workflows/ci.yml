@@ -35,5 +35,5 @@ jobs:
         node-version-file: .node-version
         cache: 'npm'
     - run: npm ci
-    - run: npm run test:unit:all 
     - run: env > .env.test
+    - run: npm run test:unit:all 
