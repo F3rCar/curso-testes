@@ -46,18 +46,18 @@ jobs:
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/livraria
     services:
       postgres:
-        image: postgres 18
+        image: postgres:18
+        env:
+          POSTGRES_DB: livraria
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
-         - 5432:5432
-    env:
-      POSTGRES_DB: livraria
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    options: >-
-      --health-cmd="pg_isready -U postgres"
-      --health-interval 10s
-      --health-timeout 5s
-      --health-retries 5
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
     - uses: actions/checkout@v4
