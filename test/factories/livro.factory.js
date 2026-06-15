@@ -3,7 +3,7 @@ import conexao from '#db/singleton-connection.js';
 export async function criarLivro(dadosParciais = {}) {
   const [autor] = await conexao('autores')
     .insert({
-      nome: 'Autor Teste',
+      nome: 'Autor Testes',
       nacionalidade: 'Teste',
     })
     .returning('*');
