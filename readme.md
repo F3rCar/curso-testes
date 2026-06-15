@@ -100,10 +100,32 @@ erDiagram
 
 - POST /vendas → registra uma nova venda. Quando uma venda é feita, um email é enviado à editora.
 
+Tipos de pagamento:
+
+- CARTAO_CREDITO: 5% de taxa.
+- CARTAO_DEBITO: 2% de taxa.
+- BOLETO: sem taxa.
+- DINHEIRO: sem taxa.
+- PIX: 5% de desconto.
+
+Request:
+
 ```json
 {
   "idLivro": 1,
   "valor": 100,
   "modoPagamento": "CARTAO_CREDITO"
+}
+```
+
+Resposta:
+
+```json
+{
+  "id": 1,
+  "valor": 105,
+  "modoPagamento": "CARTAO_CREDITO",
+  "createdAt": "2026-01-01T12:00:00Z",
+  "updatedAt": "2026-01-01T12:00:00Z"
 }
 ```
