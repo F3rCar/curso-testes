@@ -16,6 +16,7 @@
   "scripts": {
     "start": "node --env-file=.env src/server.js",
     "start:watch": "node --env-file=.env --watch src/server.js",
+    "lint": "eslint .",
     "test": "node --test",
     "exec": "node --env-file=.env src/commands/execute.js"
   },
